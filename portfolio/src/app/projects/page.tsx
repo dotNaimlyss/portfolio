@@ -21,13 +21,24 @@ const ProjectsPage: React.FC = () => {
   ];
 
   return (
-    <div style={{ maxWidth: "960px", margin: "0 auto", padding: "2rem" }}>
-      <header>
-        <h1>Thurein Tun's Portfolio</h1>
-        <nav>
-          <Link href="/">Home</Link> |
-          <Link className={`link ${pathname === '/projects' ? 'active' : ''}`} href="/projects">Projects</Link> |
-          <Link href="/contact">Contact</Link>
+    <div className="max-w-3xl mx-auto p-8">
+      <header className="text-center">
+      <h1 className="text-4xl font-bold">Thurein Tun's Portfolio</h1>
+        <nav className="mt-4">
+          <Link href="/" className="mr-4 text-blue-500 hover:underline">
+            Home
+          </Link>
+          <Link
+            href="/projects"
+            className={`mr-4 text-blue-500 hover:underline ${
+              pathname === "/projects" ? "font-bold underline" : ""
+            }`}
+          >
+            Projects
+          </Link>
+          <Link href="/contact" className="text-blue-500 hover:underline">
+            Contact
+          </Link>
         </nav>
       </header>
       <main>
