@@ -1,26 +1,30 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
 const InteractiveParticles: React.FC = () => {
-  const pointsRef = useRef<THREE.Points>(null); // Initialize with null
+  const pointsRef = useRef<THREE.Points>(null);
   const particlesCount = 10000;
-  const positions = new Float32Array(particlesCount * 3);
 
-  useEffect(() => {
+  // Create positions array
+  const positions = useMemo(() => {
+    const positions = new Float32Array(particlesCount * 3);
     for (let i = 0; i < particlesCount; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 20;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
     }
-    pointsRef.current?.geometry.setAttribute(
-      "position",
-      new THREE.BufferAttribute(positions, 3)
-    );
-  }, [particlesCount, positions]);
+    return positions;
+  }, [particlesCount]);
+
+  const geometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    return geo;
+  }, [positions]);
 
   useFrame(({ clock }) => {
     if (pointsRef.current) {
@@ -30,8 +34,7 @@ const InteractiveParticles: React.FC = () => {
   });
 
   return (
-    <Points ref={pointsRef}>
-      <bufferGeometry attach="geometry" />
+    <Points ref={pointsRef} args={[geometry]}>
       <PointMaterial
         attach="material"
         color="#ffffff"
@@ -45,10 +48,7 @@ const InteractiveParticles: React.FC = () => {
 
 const ParticlesBackground: React.FC = () => {
   return (
-    <Canvas
-      className="absolute inset-0 z-0"
-      camera={{ position: [0, 0, 10], fov: 75 }}
-    >
+    <Canvas className="absolute inset-0 z-0" camera={{ position: [0, 0, 10], fov: 75 }}>
       <InteractiveParticles />
     </Canvas>
   );
