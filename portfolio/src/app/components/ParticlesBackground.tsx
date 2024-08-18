@@ -1,10 +1,14 @@
+// app/components/ParticlesBackground.tsx
 "use client";
 
 import React from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
+import { useTheme } from "../context/ThemeContext";
 
 const ParticlesBackground: React.FC = () => {
+  const { isDarkMode } = useTheme();
+
   const particlesInit = async (main: any) => {
     await loadFull(main);
   };
@@ -17,7 +21,7 @@ const ParticlesBackground: React.FC = () => {
         fullScreen: { enable: true },
         background: {
           color: {
-            value: "#000000", // Background color
+            value: isDarkMode ? "#000000" : "#ffffff", // Change based on theme
           },
         },
         fpsLimit: 60,
@@ -30,7 +34,7 @@ const ParticlesBackground: React.FC = () => {
             },
           },
           color: {
-            value: "#ffffff", // Color of particles
+            value: isDarkMode ? "#ffffff" : "#000000", // Change based on theme
           },
           shape: {
             type: "circle",
@@ -65,7 +69,7 @@ const ParticlesBackground: React.FC = () => {
           line_linked: {
             enable: true,
             distance: 150,
-            color: "#ffffff", // Color of connecting lines
+            color: isDarkMode ? "#ffffff" : "#000000", // Change based on theme
             opacity: 0.4,
             width: 1,
           },

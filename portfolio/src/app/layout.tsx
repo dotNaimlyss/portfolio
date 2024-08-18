@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ThemeProvider, useTheme } from "../../context/ThemeContext";
+import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ParticlesBackground from "./components/ParticlesBackground";
@@ -15,7 +15,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <html lang="en">
       <body className={`${isDarkMode ? "dark" : ""} bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100`}>
         <div className="relative overflow-hidden min-h-screen">
-          {/* <ParticlesBackground /> */}
+          <ParticlesBackground />
           <div className="relative z-10 max-w-3xl mx-auto p-8">
             <header className="text-center">
               <h1 className="text-4xl font-bold">Thurein Tun's Portfolio</h1>
