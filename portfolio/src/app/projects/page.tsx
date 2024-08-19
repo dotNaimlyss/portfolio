@@ -18,7 +18,7 @@ const ProjectsPage: React.FC = () => {
     {
       title: 'whack a mole',
       description: 'mini web-based game',
-      link: 'https://github.com/dotNaimlyss/Python-Online-Library-Project',
+      link: 'https://whack-a-mole-alpha.vercel.app',
     },
     // Add more projects as needed
   ];
