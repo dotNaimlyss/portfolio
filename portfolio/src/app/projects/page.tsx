@@ -8,11 +8,16 @@ const ProjectsPage: React.FC = () => {
     {
       title: 'Mustream Project',
       description: 'A music streaming application...',
-      link: 'https://github.com/dotNaimlyss/mustream',
+      link: 'https://mustream.vercel.app',
     },
     {
       title: 'Python Online Library Project',
       description: 'A Python-based online library system...',
+      link: 'https://github.com/dotNaimlyss/Python-Online-Library-Project',
+    },
+    {
+      title: 'whack a mole',
+      description: 'mini web-based game',
       link: 'https://github.com/dotNaimlyss/Python-Online-Library-Project',
     },
     // Add more projects as needed
