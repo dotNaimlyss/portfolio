@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes shinyEffect {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shiny {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0) 100%);
+  background-size: 200% 100%;
+  animation: shinyEffect 3s infinite linear;
+}
+
+
+
+
 html {
   transition: background-color 0.2s, color 0.2s;
 }
@@ -20,3 +38,5 @@ body {
   --bg-color: #ffffff;
   --text-color: #000000;
 }
+
+
