@@ -10,6 +10,24 @@
     background-position: 200% 0;
   }
 }
+.popup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: #d1d5db; /* Tailwind's gray-300 */
+  border-radius: 0.375rem;
+  padding: 1rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  transform: translateY(-10px); /* Default state: hidden */
+  opacity: 0;
+}
+
+.popup.active {
+  transform: translateY(0); /* Visible state */
+  opacity: 1;
+}
 
 .tooltip {
   z-index: 9999;
@@ -18,15 +36,19 @@
 }
 
 .animate-shiny {
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.8) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
   background-size: 200% 100%;
   animation: shinyEffect 3s infinite linear;
 }
 
-*{
-  user-select:none;
+* {
+  user-select: none;
 }
-
 
 html {
   transition: background-color 0.2s, color 0.2s;
@@ -46,5 +68,3 @@ body {
   --bg-color: #ffffff;
   --text-color: #000000;
 }
-
-
