@@ -2,37 +2,38 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ParticlesBackground from "./components/ParticlesBackground";
+import { LocaleProvider, useLocale } from "./context/LocaleContext";
+import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import "./globals.css";
+import { localeLabels, locales } from "@/i18n/locales";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isDarkMode, toggleTheme } = useTheme();
+  const { locale, setLocale, t } = useLocale();
   const pathname = usePathname();
 
-  // State to manage header visibility
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
 
-  // Track scroll position to hide/show header
   const handleScroll = () => {
     if (window.scrollY > 50) {
-      setIsHeaderVisible(false); // Hide header when scrolled down 50px
+      setIsHeaderVisible(false);
     } else {
-      setIsHeaderVisible(true); // Show header when scrolled back up
+      setIsHeaderVisible(true);
     }
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll); // Clean up the event listener
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${
           isDarkMode ? "dark" : ""
@@ -41,7 +42,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <div className="relative overflow-hidden min-h-screen">
           <ParticlesBackground />
 
-          {/* Header */}
           <div
             className={`fixed top-0 left-0 right-0 z-10 transition-transform duration-300 ${
               isHeaderVisible ? "transform-none" : "-translate-y-full"
@@ -56,15 +56,15 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                       pathname === "/" ? "font-bold underline" : ""
                     }`}
                   >
-                    Home
+                    {t("nav.home")}
                   </Link>
-                  <Link
+                  {/* <Link
                     href="/projects"
                     className={`mr-4 hover:underline ${
                       pathname === "/projects" ? "font-bold underline" : ""
                     }`}
                   >
-                    Projects
+                    {t("nav.projects")}
                   </Link>
                   <Link
                     href="/contact"
@@ -72,9 +72,26 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                       pathname === "/contact" ? "font-bold underline" : ""
                     }`}
                   >
-                    Contact
-                  </Link>
+                    {t("nav.contact")}
+                  </Link> */}
                 </nav>
+
+                <label className="text-sm flex items-center gap-2">
+                  <span>{t("actions.language")}:</span>
+                  <select
+                    className="border rounded px-2 py-1 bg-transparent"
+                    value={locale}
+                    onChange={(event) =>
+                      setLocale(event.target.value as typeof locale)
+                    }
+                  >
+                    {locales.map((supportedLocale) => (
+                      <option key={supportedLocale} value={supportedLocale}>
+                        {localeLabels[supportedLocale]}
+                      </option>
+                    ))}
+                  </select>
+                </label>
               </header>
             </div>
           </div>
@@ -83,9 +100,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <main>{children}</main>
             <button
               onClick={toggleTheme}
-              className={`fixed bottom-4 right-4 p-3 rounded-full shadow-lg 
-    bg-gray-800 dark:bg-gray-200 hover:bg-gray-700 
-    dark:hover:bg-gray-300 text-gray-200 dark:text-gray-800 
+              className={`fixed bottom-4 right-4 p-3 rounded-full shadow-lg
+    bg-gray-800 dark:bg-gray-200 hover:bg-gray-700
+    dark:hover:bg-gray-300 text-gray-200 dark:text-gray-800
     transition-colors duration-300 `}
               aria-label="Toggle Dark Mode"
             >
@@ -94,7 +111,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
             <footer className="text-center mt-16">
               <p className="transition-colors duration-300">
-                &copy; 2024 Thurein
+                {t("footer.copyright", { year: new Date().getFullYear() })}
               </p>
             </footer>
           </div>
@@ -106,7 +123,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const App: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <ThemeProvider>
-    <Layout>{children}</Layout>
+    <LocaleProvider>
+      <Layout>{children}</Layout>
+    </LocaleProvider>
   </ThemeProvider>
 );
 
