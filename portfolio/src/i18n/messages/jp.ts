@@ -1,4 +1,4 @@
-const jp = {
+﻿const jp = {
     nav: {
         home: "ホーム",
         projects: "プロジェクト",
@@ -12,9 +12,25 @@ const jp = {
         toggleTheme: "テーマを切り替える",
         language: "言語",
     },
+    weather: {
+        badge: "ライブ天気",
+        title: "現在の天気",
+        location: "{city}, {country}",
+        loading: "現在地の天気情報を読み込み中...",
+        error: "現在、天気サービスはご利用いただけません。",
+        feelsLike: "体感温度 {temperature}°C",
+        wind: "風速",
+        humidity: "湿度",
+        rain: "降水量",
+        updated: "最終更新",
+    },
     footer: {
         copyright: "(c) {year} テュレーヌ",
     },
 };
 
 export default jp;
+
+
+
+

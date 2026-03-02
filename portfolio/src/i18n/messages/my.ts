@@ -1,4 +1,4 @@
-const my = {
+﻿const my = {
   nav: {
     home: "ပင်မစာမျက်နှာ",
     projects: "ပရောဂျက်များ",
@@ -12,9 +12,25 @@ const my = {
     toggleTheme: "အပြင်အဆင်အလင်း/အမည်း ပြောင်းရန်",
     language: "ဘာသာစကား",
   },
+  weather: {
+    badge: "တိုက်ရိုက် ရာသီဥတု",
+    title: "လက်ရှိ ရာသီဥတုအခြေအနေ",
+    location: "{city}, {country}",
+    loading: "ဒေသခံ ရာသီဥတုကို တင်နေသည်...",
+    error: "ယခုအချိန်တွင် ရာသီဥတုဝန်ဆောင်မှု မရရှိနိုင်ပါ။",
+    feelsLike: "အပူချိန် ခံစားရမှု {temperature}°C",
+    wind: "လေတိုက်နှုန်း",
+    humidity: "စိုထိုင်းဆ",
+    rain: "မိုးရွာမှု",
+    updated: "နောက်ဆုံး ပြင်ဆင်ချိန်",
+  },
   footer: {
     copyright: "(c) {year} သူရိန်",
   },
 };
 
 export default my;
+
+
+
+
