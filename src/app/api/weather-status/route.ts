@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { Locale } from "@/i18n/locales";
 
-type SupportedLocale = Locale | "th";
-
 interface CityConfig {
   city: string;
   language: string;
 }
 
-const CITY_BY_LOCALE: Record<SupportedLocale, CityConfig> = {
+const CITY_BY_LOCALE: Record<Locale, CityConfig> = {
   en: { city: "London", language: "en" },
   my: { city: "Yangon", language: "my" },
   jp: { city: "Tokyo", language: "ja" },
@@ -22,7 +20,7 @@ function pickCity(localeParam: string | null): CityConfig {
     return DEFAULT_CITY;
   }
 
-  const normalized = localeParam.toLowerCase() as SupportedLocale;
+  const normalized = localeParam.toLowerCase() as Locale;
   return CITY_BY_LOCALE[normalized] ?? DEFAULT_CITY;
 }
 

@@ -16,9 +16,10 @@ const ParticlesBackground: React.FC = () => {
   return (
     <Particles
       id="tsparticles"
+      className="pointer-events-none"
       init={particlesInit}
       options={{
-        fullScreen: { enable: true },
+        fullScreen: { enable: true, zIndex: -1 },
         background: {
           color: {
             value: isDarkMode ? "#000000" : "#ffffff", // Change based on theme
@@ -92,11 +93,11 @@ const ParticlesBackground: React.FC = () => {
           detect_on: "canvas",
           events: {
             onhover: {
-              enable: true,
+              enable: false,
               mode: "grab",
             },
             onclick: {
-              enable: true,
+              enable: false,
               mode: "push",
             },
             resize: true,

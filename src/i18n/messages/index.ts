@@ -8,6 +8,7 @@ export const messages = {
   en,
   my,
   jp,
+  th,
 } satisfies Record<Locale, typeof en>;
 
 export type MessageSchema = typeof en;

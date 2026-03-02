@@ -27,6 +27,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -43,7 +44,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           <ParticlesBackground />
 
           <div
-            className={`fixed top-0 left-0 right-0 z-10 transition-transform duration-300 ${
+            className={`fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
               isHeaderVisible ? "transform-none" : "-translate-y-full"
             }`}
           >
@@ -76,14 +77,15 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                   </Link> */}
                 </nav>
 
-                <label className="text-sm flex items-center gap-2">
+                <div className="text-sm flex items-center gap-2">
                   <span>{t("actions.language")}:</span>
                   <select
-                    className="border rounded px-2 py-1 bg-transparent"
+                    className="border rounded px-3 py-2 bg-transparent min-w-32 cursor-pointer"
                     value={locale}
                     onChange={(event) =>
                       setLocale(event.target.value as typeof locale)
                     }
+                    aria-label={t("actions.language")}
                   >
                     {locales.map((supportedLocale) => (
                       <option key={supportedLocale} value={supportedLocale}>
@@ -91,7 +93,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                       </option>
                     ))}
                   </select>
-                </label>
+                </div>
               </header>
             </div>
           </div>
