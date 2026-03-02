@@ -11,6 +11,7 @@
     actions: {
         toggleTheme: "テーマを切り替える",
         language: "言語",
+        downloadResume: "履歴書をダウンロード",
     },
     weather: {
         badge: "ライブ天気",

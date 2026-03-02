@@ -11,6 +11,7 @@
   actions: {
     toggleTheme: "အပြင်အဆင်အလင်း/အမည်း ပြောင်းရန်",
     language: "ဘာသာစကား",
+    downloadResume: "CV ကို Download လုပ်မည်",
   },
   weather: {
     badge: "တိုက်ရိုက် ရာသီဥတု",

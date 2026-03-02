@@ -11,6 +11,7 @@ const en = {
   actions: {
     toggleTheme: "Toggle Dark Mode",
     language: "Language",
+    downloadResume: "Download Resume",
   },
   weather: {
     badge: "Live weather",
