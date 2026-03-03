@@ -96,7 +96,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <button
               onClick={toggleTheme}
               className="fixed bottom-5 right-5 z-50 rounded-2xl border border-white/40 bg-white/80 px-4 py-3 text-xl shadow-xl shadow-slate-900/15 backdrop-blur-lg transition hover:-translate-y-0.5 hover:bg-white dark:border-white/15 dark:bg-slate-900/80 dark:shadow-black/30 dark:hover:bg-slate-900"
-              aria-label="Toggle Dark Mode"
+              aria-label={t("actions.toggleTheme")}
             >
               {isDarkMode ? "☀️" : "🌙"}
             </button>

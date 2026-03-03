@@ -1,24 +1,23 @@
 import React from "react";
-
-const cards = [
-  {
-    title: "Frontend Craft",
-    description:
-      "Modern React interfaces with intentional motion, clear hierarchy, and strong visual identity.",
-  },
-  {
-    title: "API Integration",
-    description:
-      "Clean, resilient API layers with robust loading states and user-friendly error handling.",
-  },
-  {
-    title: "Performance Focus",
-    description:
-      "Lean components, practical optimizations, and responsive layouts that stay smooth on mobile.",
-  },
-];
+import { useLocale } from "../context/LocaleContext";
 
 const HighlightsSection: React.FC = () => {
+  const { t } = useLocale();
+  const cards = [
+    {
+      title: t("highlights.cards.frontend.title"),
+      description: t("highlights.cards.frontend.description"),
+    },
+    {
+      title: t("highlights.cards.api.title"),
+      description: t("highlights.cards.api.description"),
+    },
+    {
+      title: t("highlights.cards.performance.title"),
+      description: t("highlights.cards.performance.description"),
+    },
+  ];
+
   return (
     <section className="relative py-5">
       <div className="pointer-events-none absolute inset-x-10 top-8 -z-10 h-64 rounded-full bg-gradient-to-r from-cyan-400/20 via-sky-400/20 to-emerald-400/20 blur-3xl dark:from-cyan-500/10 dark:via-sky-500/10 dark:to-emerald-500/10" />
@@ -26,14 +25,13 @@ const HighlightsSection: React.FC = () => {
       <div className="mx-auto max-w-5xl">
         <div className="text-center">
           <p className="text-xs font-bold uppercase tracking-[0.28em] text-slate-500 dark:text-slate-400">
-            What I Build
+            {t("highlights.badge")}
           </p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-            Interactive products that feel premium
+            {t("highlights.title")}
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 dark:text-slate-300">
-            A quick snapshot of how I approach design and engineering for
-            production-ready apps.
+            {t("highlights.description")}
           </p>
         </div>
 
