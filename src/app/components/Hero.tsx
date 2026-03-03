@@ -19,7 +19,7 @@ const Greet: React.FC = () => {
           </Reveal>
 
           <Reveal delayMs={80}>
-            <h1 className="mt-6 text-balance text-3xl font-black leading-tight tracking-tight text-slate-900 sm:text-5xl md:text-6xl dark:text-white">
+            <h1 className="mt-6 text-balance text-3xl font-black leading-tight tracking-tight text-slate-900 sm:text-2xl md:text-3xl dark:text-white">
               <span className="bg-gradient-to-r from-sky-500 via-cyan-500 to-orange-500 bg-clip-text text-transparent">
                 {t("thurein.title")}
               </span>
@@ -27,7 +27,7 @@ const Greet: React.FC = () => {
           </Reveal>
 
           <Reveal delayMs={160} className="w-full">
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-700 animate-fade-in-delayed sm:mt-6 sm:text-lg dark:text-slate-300">
+            <p className="mt-5 text-base leading-relaxed text-slate-700 animate-fade-in-delayed sm:mt-6 sm:text-lg dark:text-slate-300">
               {t("thurein.description")}
             </p>
           </Reveal>
