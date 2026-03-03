@@ -39,37 +39,39 @@ function describeWeather(code: number, isDay: boolean, locale: string): string {
       unknown: "Unknown conditions",
     },
     my: {
-      clear: isDay ? "Clear sky" : "Clear night",
-      partlyCloudy: "Partly cloudy",
-      cloudy: "Cloudy",
-      fog: "Fog",
-      drizzle: "Drizzle",
-      rain: "Rain",
-      snow: "Snow",
-      storm: "Thunderstorm",
-      unknown: "Unknown conditions",
+      clear: isDay ? "ကောင်းကင်ကြည်လင်" : "ညကောင်းကင်ကြည်လင်",
+      partlyCloudy: "တိမ်အနည်းငယ်ရှိ",
+      cloudy: "တိမ်ထူ",
+      fog: "မြူထူ",
+      drizzle: "မိုးဖွဲ",
+      rain: "မိုးရွာ",
+      snow: "နှင်းကျ",
+      storm: "မိုးကြိုးမုန်တိုင်း",
+      unknown: "မသိရသောရာသီဥတုအခြေအနေ",
     },
+
     jp: {
-      clear: isDay ? "Clear sky" : "Clear night",
-      partlyCloudy: "Partly cloudy",
-      cloudy: "Cloudy",
-      fog: "Fog",
-      drizzle: "Drizzle",
-      rain: "Rain",
-      snow: "Snow",
-      storm: "Thunderstorm",
-      unknown: "Unknown conditions",
+      clear: isDay ? "快晴" : "晴れ（夜）",
+      partlyCloudy: "一部曇り",
+      cloudy: "曇り",
+      fog: "霧",
+      drizzle: "霧雨",
+      rain: "雨",
+      snow: "雪",
+      storm: "雷雨",
+      unknown: "不明な天気状況",
     },
+
     th: {
-      clear: isDay ? "Clear sky" : "Clear night",
-      partlyCloudy: "Partly cloudy",
-      cloudy: "Cloudy",
-      fog: "Fog",
-      drizzle: "Drizzle",
-      rain: "Rain",
-      snow: "Snow",
-      storm: "Thunderstorm",
-      unknown: "Unknown conditions",
+      clear: isDay ? "ท้องฟ้าแจ่มใส" : "ท้องฟ้าแจ่มใสตอนกลางคืน",
+      partlyCloudy: "มีเมฆบางส่วน",
+      cloudy: "มีเมฆมาก",
+      fog: "หมอก",
+      drizzle: "ฝนปรอย",
+      rain: "ฝนตก",
+      snow: "หิมะตก",
+      storm: "พายุฝนฟ้าคะนอง",
+      unknown: "สภาพอากาศไม่ทราบแน่ชัด",
     },
   };
 
@@ -200,18 +202,27 @@ const WeatherStatus: React.FC = () => {
     if (!data) {
       return "--";
     }
-    return describeWeather(data.current.weatherCode, data.current.isDay, locale);
+    return describeWeather(
+      data.current.weatherCode,
+      data.current.isDay,
+      locale,
+    );
   }, [data, locale]);
 
   const weatherTheme = useMemo(() => {
-    return getWeatherTheme(data?.current.weatherCode ?? 0, data?.current.isDay ?? true);
+    return getWeatherTheme(
+      data?.current.weatherCode ?? 0,
+      data?.current.isDay ?? true,
+    );
   }, [data]);
 
   return (
     <div
       className={`relative mt-10 w-full max-w-3xl overflow-hidden rounded-3xl border border-white/45 p-6 text-left shadow-2xl shadow-slate-900/15 backdrop-blur-xl transition-all duration-300 dark:border-white/10 ${weatherTheme.gradient}`}
     >
-      <div className={`pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-gradient-to-br blur-3xl ${weatherTheme.accent}`} />
+      <div
+        className={`pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-gradient-to-br blur-3xl ${weatherTheme.accent}`}
+      />
       <div className="pointer-events-none absolute -bottom-20 -left-14 h-56 w-56 rounded-full bg-white/20 blur-3xl dark:bg-white/10" />
 
       <div className="relative mb-6 flex items-start justify-between gap-4">
@@ -239,7 +250,9 @@ const WeatherStatus: React.FC = () => {
 
       {isLoading && (
         <div className="relative z-10 space-y-3">
-          <p className="text-sm text-slate-700 dark:text-slate-300">{t("weather.loading")}</p>
+          <p className="text-sm text-slate-700 dark:text-slate-300">
+            {t("weather.loading")}
+          </p>
           <div className="h-20 w-2/3 animate-pulse rounded-2xl bg-white/45 dark:bg-white/10" />
           <div className="grid gap-3 sm:grid-cols-4">
             <div className="h-20 animate-pulse rounded-2xl bg-white/45 dark:bg-white/10" />
@@ -278,7 +291,8 @@ const WeatherStatus: React.FC = () => {
                 {t("weather.wind")}
               </p>
               <p className="mt-1 text-2xl font-black text-slate-900 dark:text-white">
-                {Math.round(data.current.windSpeed)} <span className="text-sm font-semibold">km/h</span>
+                {Math.round(data.current.windSpeed)}{" "}
+                <span className="text-sm font-semibold">km/h</span>
               </p>
             </div>
 
@@ -296,7 +310,8 @@ const WeatherStatus: React.FC = () => {
                 {t("weather.rain")}
               </p>
               <p className="mt-1 text-2xl font-black text-slate-900 dark:text-white">
-                {data.current.precipitation} <span className="text-sm font-semibold">mm</span>
+                {data.current.precipitation}{" "}
+                <span className="text-sm font-semibold">mm</span>
               </p>
             </div>
 
@@ -316,4 +331,3 @@ const WeatherStatus: React.FC = () => {
 };
 
 export default WeatherStatus;
-

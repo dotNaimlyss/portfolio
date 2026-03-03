@@ -25,14 +25,24 @@ const Greet: React.FC = () => {
             {t("thurein.description")}
           </p>
 
-          <a
-            href="/Thurein-Resume.pdf"
-            download="Thurein-Resume.pdf"
-            className="group mt-8 inline-flex items-center gap-2 rounded-2xl border border-white/60 bg-white/85 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white dark:border-white/20 dark:bg-slate-900/70 dark:text-white dark:shadow-black/25"
-          >
-            <span>{t("actions.downloadResume")}</span>
-            <span className="transition-transform group-hover:translate-x-1">-&gt;</span>
-          </a>
+          <div className="relative mt-8">
+            <a
+              href="/Thurein-Resume.pdf"
+              download="Thurein-Resume.pdf"
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-2xl border border-white/60 bg-white/85 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white dark:border-white/20 dark:bg-slate-900/70 dark:text-white dark:shadow-black/25"
+            >
+              <span className="relative z-10">{t("actions.downloadResume")}</span>
+              <span className="relative z-10 transition-transform group-hover:translate-x-1">-&gt;</span>
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-sky-500/70 to-transparent opacity-0 mix-blend-multiply blur-[1px] transition-opacity duration-300 group-hover:opacity-100 animate-reflection-sweep dark:via-white/35 dark:mix-blend-screen"
+              />
+            </a>
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute left-3 right-3 top-[calc(100%+2px)] h-5 rounded-full bg-gradient-to-b from-slate-500/35 to-transparent opacity-70 blur-md dark:from-sky-100/25 dark:opacity-50"
+            />
+          </div>
 
           <WeatherStatus />
         </div>

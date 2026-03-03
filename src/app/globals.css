@@ -11,6 +11,15 @@
   }
 }
 
+@keyframes reflectionSweep {
+  0% {
+    transform: translateX(-180%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(360%) skewX(-18deg);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -50,4 +59,8 @@ h3 {
   );
   background-size: 200% 100%;
   animation: shinyEffect 3s infinite linear;
+}
+
+.animate-reflection-sweep {
+  animation: reflectionSweep 2.1s ease-in-out infinite;
 }
