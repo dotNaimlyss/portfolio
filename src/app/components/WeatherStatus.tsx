@@ -218,7 +218,7 @@ const WeatherStatus: React.FC = () => {
 
   return (
     <div
-      className={`relative mt-10 w-full max-w-3xl overflow-hidden rounded-3xl border border-white/45 p-6 text-left shadow-2xl shadow-slate-900/15 backdrop-blur-xl transition-all duration-300 dark:border-white/10 ${weatherTheme.gradient}`}
+      className={`relative mt-10 w-full max-w-3xl overflow-hidden rounded-2xl border border-white/45 p-4 text-left shadow-2xl shadow-slate-900/15 backdrop-blur-xl transition-all duration-300 sm:rounded-3xl sm:p-6 dark:border-white/10 ${weatherTheme.gradient}`}
     >
       <div
         className={`pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-gradient-to-br blur-3xl ${weatherTheme.accent}`}
@@ -230,7 +230,7 @@ const WeatherStatus: React.FC = () => {
           <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-slate-700/75 dark:text-slate-300/80">
             {t("weather.badge")}
           </p>
-          <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white">
+          <h2 className="text-xl font-extrabold text-slate-900 sm:text-2xl dark:text-white">
             {t("weather.title")}
           </h2>
           {data && (
@@ -254,7 +254,7 @@ const WeatherStatus: React.FC = () => {
             {t("weather.loading")}
           </p>
           <div className="h-20 w-2/3 animate-pulse rounded-2xl bg-white/45 dark:bg-white/10" />
-          <div className="grid gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <div className="h-20 animate-pulse rounded-2xl bg-white/45 dark:bg-white/10" />
             <div className="h-20 animate-pulse rounded-2xl bg-white/45 dark:bg-white/10" />
             <div className="h-20 animate-pulse rounded-2xl bg-white/45 dark:bg-white/10" />
@@ -272,7 +272,7 @@ const WeatherStatus: React.FC = () => {
       {!isLoading && !error && data && (
         <div className="relative z-10 space-y-4">
           <div className="rounded-2xl border border-white/45 bg-white/50 p-5 shadow-md dark:border-white/15 dark:bg-black/20">
-            <p className="text-6xl font-black leading-none tracking-tight text-slate-900 dark:text-white">
+            <p className="text-5xl font-black leading-none tracking-tight text-slate-900 sm:text-6xl dark:text-white">
               {Math.round(data.current.temperature)}°C
             </p>
             <p className="mt-2 text-base font-semibold text-slate-800 dark:text-slate-200">
@@ -290,7 +290,7 @@ const WeatherStatus: React.FC = () => {
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-400">
                 {t("weather.wind")}
               </p>
-              <p className="mt-1 text-2xl font-black text-slate-900 dark:text-white">
+              <p className="mt-1 text-xl font-black text-slate-900 sm:text-2xl dark:text-white">
                 {Math.round(data.current.windSpeed)}{" "}
                 <span className="text-sm font-semibold">km/h</span>
               </p>
@@ -300,7 +300,7 @@ const WeatherStatus: React.FC = () => {
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-400">
                 {t("weather.humidity")}
               </p>
-              <p className="mt-1 text-2xl font-black text-slate-900 dark:text-white">
+              <p className="mt-1 text-xl font-black text-slate-900 sm:text-2xl dark:text-white">
                 {data.current.humidity}%
               </p>
             </div>
@@ -309,7 +309,7 @@ const WeatherStatus: React.FC = () => {
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-400">
                 {t("weather.rain")}
               </p>
-              <p className="mt-1 text-2xl font-black text-slate-900 dark:text-white">
+              <p className="mt-1 text-xl font-black text-slate-900 sm:text-2xl dark:text-white">
                 {data.current.precipitation}{" "}
                 <span className="text-sm font-semibold">mm</span>
               </p>
@@ -319,7 +319,7 @@ const WeatherStatus: React.FC = () => {
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 dark:text-slate-400">
                 {t("weather.updated")}
               </p>
-              <p className="mt-1 text-sm font-semibold text-slate-800 dark:text-slate-200">
+              <p className="mt-1 break-words text-xs font-semibold text-slate-800 sm:text-sm dark:text-slate-200">
                 {updatedAt}
               </p>
             </div>

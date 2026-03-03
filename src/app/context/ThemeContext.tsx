@@ -1,4 +1,12 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  ReactNode,
+} from "react";
+import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from "next-themes";
 
 interface ThemeContextProps {
   isDarkMode: boolean;
@@ -7,23 +15,40 @@ interface ThemeContextProps {
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
-export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+const ThemeBridge: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const { resolvedTheme, setTheme } = useNextTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
+    setMounted(true);
+  }, []);
+
+  const isDarkMode = mounted ? resolvedTheme === "dark" : true;
 
   const toggleTheme = () => {
-    setIsDarkMode((prevMode) => !prevMode);
+    setTheme(isDarkMode ? "light" : "dark");
   };
 
+  const value = useMemo(
+    () => ({
+      isDarkMode,
+      toggleTheme,
+    }),
+    [isDarkMode],
+  );
+
   return (
-    <ThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );
 };
+
+export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => (
+  <NextThemesProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+    <ThemeBridge>{children}</ThemeBridge>
+  </NextThemesProvider>
+);
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
