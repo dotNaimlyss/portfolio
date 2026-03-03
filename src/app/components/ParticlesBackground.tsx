@@ -1,5 +1,4 @@
-// app/components/ParticlesBackground.tsx
-"use client";
+﻿"use client";
 
 import React from "react";
 import Particles from "react-tsparticles";
@@ -19,84 +18,59 @@ const ParticlesBackground: React.FC = () => {
       className="pointer-events-none"
       init={particlesInit}
       options={{
-        fullScreen: { enable: true, zIndex: -1 },
+        fullScreen: { enable: true, zIndex: -10 },
         background: {
           color: {
-            value: isDarkMode ? "#000000" : "#ffffff", // Change based on theme
+            value: "transparent",
           },
         },
         fpsLimit: 60,
         particles: {
           number: {
-            value: 100, // Number of particles
+            value: 70,
             density: {
               enable: true,
-              value_area: 800,
+              area: 900,
             },
           },
           color: {
-            value: isDarkMode ? "#ffffff" : "#000000", // Change based on theme
+            value: isDarkMode ? ["#7dd3fc", "#22d3ee", "#f472b6"] : ["#0284c7", "#06b6d4", "#fb7185"],
           },
           shape: {
             type: "circle",
-            stroke: {
-              width: 0,
-              color: "#000000",
-            },
-            polygon: {
-              nb_sides: 5,
-            },
           },
           opacity: {
-            value: 0.1,
-            random: false,
-            anim: {
-              enable: false,
-              speed: 1,
-              opacity_min: 0.1,
-              sync: false,
-            },
+            value: 0.22,
           },
           size: {
-            value: 3,
-            random: true,
-            anim: {
-              enable: false,
-              speed: 40,
-              size_min: 0.1,
-              sync: false,
-            },
+            value: { min: 1, max: 3 },
           },
-          line_linked: {
+          links: {
             enable: true,
-            distance: 150,
-            color: isDarkMode ? "#ffffff" : "#000000", // Change based on theme
-            opacity: 0.4,
+            distance: 130,
+            color: isDarkMode ? "#38bdf8" : "#0ea5e9",
+            opacity: 0.15,
             width: 1,
           },
           move: {
             enable: true,
-            speed: 6,
+            speed: 1.6,
             direction: "none",
             random: false,
             straight: false,
-            out_mode: "out",
-            bounce: false,
-            attract: {
-              enable: false,
-              rotateX: 600,
-              rotateY: 1200,
+            outModes: {
+              default: "out",
             },
           },
         },
         interactivity: {
-          detect_on: "canvas",
+          detectsOn: "canvas",
           events: {
-            onhover: {
-              enable: false,
+            onHover: {
+              enable: true,
               mode: "grab",
             },
-            onclick: {
+            onClick: {
               enable: false,
               mode: "push",
             },
@@ -105,33 +79,17 @@ const ParticlesBackground: React.FC = () => {
           modes: {
             grab: {
               distance: 140,
-              line_linked: {
-                opacity: 1,
+              links: {
+                opacity: 0.35,
               },
-            },
-            bubble: {
-              distance: 400,
-              size: 40,
-              duration: 2,
-              opacity: 8,
-              speed: 3,
-            },
-            repulse: {
-              distance: 200,
-              duration: 0.4,
-            },
-            push: {
-              particles_nb: 4,
-            },
-            remove: {
-              particles_nb: 2,
             },
           },
         },
-        retina_detect: true,
+        detectRetina: true,
       }}
     />
   );
 };
 
 export default ParticlesBackground;
+

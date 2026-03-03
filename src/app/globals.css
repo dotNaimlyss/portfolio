@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -10,29 +10,35 @@
     background-position: 200% 0;
   }
 }
-.popup {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background-color: #d1d5db; /* Tailwind's gray-300 */
-  border-radius: 0.375rem;
-  padding: 1rem;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  transform: translateY(-10px); /* Default state: hidden */
-  opacity: 0;
+
+* {
+  box-sizing: border-box;
 }
 
-.popup.active {
-  transform: translateY(0); /* Visible state */
-  opacity: 1;
+html {
+  transition: background-color 0.2s, color 0.2s;
 }
 
-.tooltip {
-  z-index: 9999;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  border: 1px solid red;
+body {
+  font-family: var(--font-manrope), "Segoe UI", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-space-grotesk), "Segoe UI", sans-serif;
+}
+
+.dark {
+  --bg-color: #020617;
+  --text-color: #f8fafc;
+}
+
+.light {
+  --bg-color: #f8fafc;
+  --text-color: #0f172a;
 }
 
 .animate-shiny {
@@ -44,27 +50,4 @@
   );
   background-size: 200% 100%;
   animation: shinyEffect 3s infinite linear;
-}
-
-* {
-  user-select: none;
-}
-
-html {
-  transition: background-color 0.2s, color 0.2s;
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-
-.dark {
-  --bg-color: #1a1a1a;
-  --text-color: #f5f5f5;
-}
-
-.light {
-  --bg-color: #ffffff;
-  --text-color: #000000;
 }

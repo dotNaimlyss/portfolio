@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { useLocale } from "../context/LocaleContext";
 import WeatherStatus from "./WeatherStatus";
 
@@ -7,21 +7,33 @@ const Greet: React.FC = () => {
 
   return (
     <section lang={locale}>
-      <div className="text-center min-h-screen pt-16 grid place-items-center">
-        <div className="text-center flex flex-col items-center">
-          <p className="text-2xl font-bold sm:text-3xl md:text-4xl mb-4">
-            {t("thurein.title")}
+      <div className="relative grid min-h-screen place-items-center py-16">
+        <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-sky-400/25 via-cyan-300/15 to-orange-300/15 blur-3xl dark:from-sky-500/20 dark:via-cyan-400/15 dark:to-pink-400/10" />
+
+        <div className="mx-auto flex w-full max-w-3xl flex-col items-center text-center">
+          <p className="rounded-full border border-slate-300/70 bg-white/70 px-4 py-1 text-xs font-bold uppercase tracking-[0.25em] text-slate-600 shadow-sm backdrop-blur dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-300">
+            Portfolio
           </p>
-          <p className="text-lg animate-fade-in-delayed max-w-2xl">
+
+          <h1 className="mt-6 text-balance text-4xl font-black leading-tight tracking-tight text-slate-900 sm:text-5xl md:text-6xl dark:text-white">
+            <span className="bg-gradient-to-r from-sky-500 via-cyan-500 to-orange-500 bg-clip-text text-transparent">
+              {t("thurein.title")}
+            </span>
+          </h1>
+
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-700 animate-fade-in-delayed dark:text-slate-300">
             {t("thurein.description")}
           </p>
+
           <a
             href="/Thurein-Resume.pdf"
             download="Thurein-Resume.pdf"
-            className="mt-6 inline-flex items-center rounded-lg border border-gray-300 dark:border-gray-600 bg-white/80 dark:bg-gray-800/80 px-5 py-2.5 text-sm font-semibold text-gray-900 dark:text-gray-100 shadow-sm transition hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="group mt-8 inline-flex items-center gap-2 rounded-2xl border border-white/60 bg-white/85 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-slate-900/10 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white dark:border-white/20 dark:bg-slate-900/70 dark:text-white dark:shadow-black/25"
           >
-            {t("actions.downloadResume")}
+            <span>{t("actions.downloadResume")}</span>
+            <span className="transition-transform group-hover:translate-x-1">-&gt;</span>
           </a>
+
           <WeatherStatus />
         </div>
       </div>
@@ -30,3 +42,4 @@ const Greet: React.FC = () => {
 };
 
 export default Greet;
+
