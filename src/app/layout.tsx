@@ -80,7 +80,12 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 <div className="text-sm flex items-center gap-2">
                   <span>{t("actions.language")}:</span>
                   <select
-                    className="border rounded px-3 py-2 bg-transparent min-w-32 cursor-pointer"
+                    className={`border rounded px-3 py-2 min-w-32 cursor-pointer
+    ${
+      isDarkMode
+        ? "bg-gray-800 text-white border-gray-600"
+        : "bg-white text-gray-700 border-gray-300"
+    }`}
                     value={locale}
                     onChange={(event) =>
                       setLocale(event.target.value as typeof locale)

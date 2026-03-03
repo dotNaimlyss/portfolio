@@ -19,6 +19,12 @@ interface WeatherPayload {
   };
 }
 
+interface WeatherTheme {
+  icon: string;
+  gradient: string;
+  accent: string;
+}
+
 function describeWeather(code: number, isDay: boolean, locale: string): string {
   const lexicon: Record<string, Record<string, string>> = {
     en: {
@@ -73,6 +79,60 @@ function describeWeather(code: number, isDay: boolean, locale: string): string {
   ).find(([, values]) => values.includes(code))?.[0];
 
   return found ? terms[found] : terms.unknown;
+}
+
+function getWeatherTheme(code: number, isDay: boolean): WeatherTheme {
+  if ([95, 96, 99].includes(code)) {
+    return {
+      icon: "⛈",
+      gradient:
+        "from-slate-950/90 via-indigo-950/85 to-slate-900/90 dark:from-slate-950 dark:via-indigo-950 dark:to-slate-900",
+      accent: "from-indigo-500/40 to-sky-400/25",
+    };
+  }
+
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) {
+    return {
+      icon: "🌧",
+      gradient:
+        "from-slate-900/85 via-sky-950/80 to-cyan-950/80 dark:from-slate-900 dark:via-sky-950 dark:to-cyan-950",
+      accent: "from-cyan-400/35 to-blue-300/25",
+    };
+  }
+
+  if ([71, 73, 75, 77, 85, 86].includes(code)) {
+    return {
+      icon: "❄",
+      gradient:
+        "from-slate-100 via-sky-100 to-white dark:from-slate-800 dark:via-slate-700 dark:to-slate-800",
+      accent: "from-sky-300/40 to-slate-200/40",
+    };
+  }
+
+  if ([45, 48].includes(code)) {
+    return {
+      icon: "🌫",
+      gradient:
+        "from-zinc-200 via-slate-200 to-zinc-300 dark:from-zinc-800 dark:via-slate-800 dark:to-zinc-900",
+      accent: "from-slate-300/50 to-zinc-200/40",
+    };
+  }
+
+  if ([1, 2, 3].includes(code)) {
+    return {
+      icon: isDay ? "⛅" : "☁",
+      gradient:
+        "from-amber-100 via-sky-100 to-cyan-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900",
+      accent: "from-amber-300/40 to-cyan-300/35",
+    };
+  }
+
+  return {
+    icon: isDay ? "☀" : "🌙",
+    gradient:
+      "from-amber-200 via-orange-100 to-sky-100 dark:from-slate-900 dark:via-indigo-900 dark:to-slate-900",
+    accent: "from-amber-300/50 to-orange-300/35",
+  };
 }
 
 const WeatherStatus: React.FC = () => {
@@ -136,16 +196,27 @@ const WeatherStatus: React.FC = () => {
     );
   }, [data, locale]);
 
+  const weatherTheme = useMemo(() => {
+    return getWeatherTheme(data?.current.weatherCode ?? 0, data?.current.isDay ?? true);
+  }, [data]);
+
   return (
-    <div className="mt-8 w-full max-w-2xl rounded-2xl border border-black/10 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-6 text-left shadow-xl">
-      <div className="mb-5 flex items-start justify-between gap-4">
-        <div>
-          <p className="text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
+    <div
+      className={`relative mt-8 w-full max-w-2xl overflow-hidden rounded-3xl border border-black/10 p-6 text-left shadow-2xl backdrop-blur-xl transition-all duration-300 dark:border-white/10 ${weatherTheme.gradient}`}
+    >
+      <div className={`pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-gradient-to-br blur-3xl ${weatherTheme.accent}`} />
+      <div className="pointer-events-none absolute -bottom-24 -left-10 h-52 w-52 rounded-full bg-white/20 blur-3xl dark:bg-white/10" />
+
+      <div className="relative mb-6 flex items-start justify-between gap-4">
+        <div className="space-y-1">
+          <p className="text-xs uppercase tracking-[0.2em] text-slate-700/75 dark:text-slate-300/80">
             {t("weather.badge")}
           </p>
-          <h2 className="text-lg font-semibold">{t("weather.title")}</h2>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
+            {t("weather.title")}
+          </h2>
           {data && (
-            <p className="text-sm text-gray-600 dark:text-gray-300">
+            <p className="text-sm text-slate-700 dark:text-slate-300">
               {t("weather.location", {
                 city: data.city,
                 country: data.country,
@@ -153,59 +224,82 @@ const WeatherStatus: React.FC = () => {
             </p>
           )}
         </div>
+
+        <div className="rounded-2xl border border-white/45 bg-white/45 px-3 py-2 text-2xl shadow-sm dark:border-white/20 dark:bg-white/10">
+          {weatherTheme.icon}
+        </div>
       </div>
 
       {isLoading && (
-        <p className="text-sm text-gray-600 dark:text-gray-300">
-          {t("weather.loading")}
-        </p>
+        <div className="relative z-10 space-y-3">
+          <p className="text-sm text-slate-700 dark:text-slate-300">{t("weather.loading")}</p>
+          <div className="h-16 w-2/3 animate-pulse rounded-2xl bg-white/45 dark:bg-white/10" />
+          <div className="grid gap-3 sm:grid-cols-3">
+            <div className="h-20 animate-pulse rounded-2xl bg-white/45 dark:bg-white/10" />
+            <div className="h-20 animate-pulse rounded-2xl bg-white/45 dark:bg-white/10" />
+            <div className="h-20 animate-pulse rounded-2xl bg-white/45 dark:bg-white/10" />
+          </div>
+        </div>
       )}
 
       {!isLoading && error && (
-        <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+        <div className="rounded-2xl border border-red-300/60 bg-red-50/80 p-4 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-950/40 dark:text-red-300">
+          {error}
+        </div>
       )}
 
       {!isLoading && !error && data && (
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl bg-black/5 dark:bg-white/10 p-4">
-            <p className="text-4xl font-bold leading-none">
-              {Math.round(data.current.temperature)} deg C
+        <div className="relative z-10 space-y-4">
+          <div className="rounded-2xl border border-white/45 bg-white/45 p-5 shadow-md dark:border-white/15 dark:bg-black/20">
+            <p className="text-5xl font-black leading-none tracking-tight text-slate-900 dark:text-white">
+              {Math.round(data.current.temperature)}°C
             </p>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+            <p className="mt-2 text-base font-medium text-slate-800 dark:text-slate-200">
               {weatherLabel}
             </p>
-            <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            <p className="mt-2 text-xs uppercase tracking-wide text-slate-600 dark:text-slate-400">
               {t("weather.feelsLike", {
                 temperature: Math.round(data.current.feelsLike),
               })}
             </p>
           </div>
 
-          <div className="rounded-xl bg-black/5 dark:bg-white/10 p-4 space-y-2">
-            <p className="text-sm">
-              <span className="text-gray-500 dark:text-gray-400">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl border border-white/40 bg-white/40 p-4 transition-transform duration-300 hover:-translate-y-1 dark:border-white/15 dark:bg-black/20">
+              <p className="text-xs uppercase tracking-wide text-slate-600 dark:text-slate-400">
                 {t("weather.wind")}:
-              </span>{" "}
-              {Math.round(data.current.windSpeed)} km/h
-            </p>
-            <p className="text-sm">
-              <span className="text-gray-500 dark:text-gray-400">
+              </p>
+              <p className="mt-1 text-2xl font-bold text-slate-900 dark:text-white">
+                {Math.round(data.current.windSpeed)} <span className="text-sm font-medium">km/h</span>
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/40 bg-white/40 p-4 transition-transform duration-300 hover:-translate-y-1 dark:border-white/15 dark:bg-black/20">
+              <p className="text-xs uppercase tracking-wide text-slate-600 dark:text-slate-400">
                 {t("weather.humidity")}:
-              </span>{" "}
-              {data.current.humidity}%
-            </p>
-            <p className="text-sm">
-              <span className="text-gray-500 dark:text-gray-400">
+              </p>
+              <p className="mt-1 text-2xl font-bold text-slate-900 dark:text-white">
+                {data.current.humidity}%
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/40 bg-white/40 p-4 transition-transform duration-300 hover:-translate-y-1 dark:border-white/15 dark:bg-black/20">
+              <p className="text-xs uppercase tracking-wide text-slate-600 dark:text-slate-400">
                 {t("weather.rain")}:
-              </span>{" "}
-              {data.current.precipitation} mm
-            </p>
-            <p className="text-sm">
-              <span className="text-gray-500 dark:text-gray-400">
+              </p>
+              <p className="mt-1 text-2xl font-bold text-slate-900 dark:text-white">
+                {data.current.precipitation} <span className="text-sm font-medium">mm</span>
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/40 bg-white/40 p-4 dark:border-white/15 dark:bg-black/20">
+              <p className="text-xs uppercase tracking-wide text-slate-600 dark:text-slate-400">
                 {t("weather.updated")}:
-              </span>{" "}
-              {updatedAt}
-            </p>
+              </p>
+              <p className="mt-1 text-sm font-semibold text-slate-800 dark:text-slate-200">
+                {updatedAt}
+              </p>
+            </div>
           </div>
         </div>
       )}
