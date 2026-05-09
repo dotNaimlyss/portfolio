@@ -23,7 +23,9 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["500", "700"],
 });
 
-const LayoutContent: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const LayoutContent: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { isDarkMode, toggleTheme } = useTheme();
   const { setLocale, t, locale } = useLocale();
   const pathname = usePathname();
@@ -51,16 +53,22 @@ const LayoutContent: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         <div className="mx-auto mt-2 w-[min(94%,72rem)] rounded-xl border border-white/50 bg-white/70 px-3 py-2 shadow-xl shadow-slate-900/10 backdrop-blur-xl sm:mt-4 sm:w-[min(92%,72rem)] sm:rounded-2xl sm:px-5 sm:py-3 dark:border-white/10 dark:bg-slate-900/60 dark:shadow-black/25">
           <header className="flex flex-wrap items-center justify-between gap-3 sm:flex-nowrap sm:gap-4">
             <nav className="flex items-center gap-2">
-              <Link
-                href="/"
-                className={`rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
-                  pathname === "/"
-                    ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
-                    : "text-slate-700 hover:bg-black/5 dark:text-slate-300 dark:hover:bg-white/10"
-                }`}
-              >
-                {t("nav.home")}
-              </Link>
+              {[
+                { href: "/", label: t("nav.home") },
+                { href: "/contact", label: t("nav.contact") },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors sm:px-4 ${
+                    pathname === item.href
+                      ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
+                      : "text-slate-700 hover:bg-black/5 dark:text-slate-300 dark:hover:bg-white/10"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
 
             <div className="flex w-full items-center justify-between gap-2 text-sm sm:w-auto sm:justify-end sm:gap-3">
